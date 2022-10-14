@@ -1,7 +1,20 @@
-import '../styles/globals.css'
+import NextApp from "next/app";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const nonce = __webpack_nonce__;
+  console.log("MyApp", nonce);
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+MyApp.getInitialProps = async (appContext) => {
+  const nonce = __webpack_nonce__;
+  console.log("MyApp.getInitialProps", nonce);
+
+  const appProps = await NextApp.getInitialProps(appContext);
+
+  return {
+    ...appProps,
+  };
+};
+
+export default MyApp;
